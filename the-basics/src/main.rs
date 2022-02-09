@@ -1,48 +1,51 @@
-// Processing a guess:
-//  Ask for user input
-//  Process that input
-//  Check that the input is as expected
-
-use std::io;
-use rand::Rng;
-use std::cmp::Ordering;
-
-
-fn guessing_game() {
-
-    loop {
-        println!("Guess a number:");
-
-        let secret_number = rand::thread_rng().gen_range(1, 10);
-
-        let mut guess = String::new();
-
-        io::stdin().read_line(&mut guess)
-            .expect("Failed to read line");
-
-        println!("Your guess: {}", guess);
-
-        let guess: u32 = match guess.trim().parse() {
-            Ok(num) => num,
-            Err(_) => {
-                println!("Enter a number!");
-                continue;
-            }
-        };
-
-        match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small"),
-            Ordering::Greater => println!("Too large"),
-            Ordering::Equal => {
-                println!("You got it!");
-                break;
-            }
-        }
-    }
-
+fn variable_mutability_example() {
+    let x = 5;
+    let x = x + 3;
+    let x = x * 2;
+    println!("{}", x);
 }
 
+fn variable_immutable_type_example() {
+
+    // Can't mutate a variable's type
+
+    let some_string = "joe";
+    let some_string = some_string.len();
+    let some_other_string = "joe";
+    some_other_string = some_other_string.len();
+}
+
+fn five() -> u32 {
+    5
+}
+
+fn conditional() {
+    let number = 3;
+
+    if number < 5 {
+        println!("True")
+    } else if number == 5 {
+        println!("OK")
+    } else {
+        println!("False")
+    }
+
+    let result = loop {
+        counter += 1;
+        if counter == 10 {
+            break {
+                counter * 2
+            };
+        }
+    };
+    println!("{}", result)
+}
 
 fn main() {
-    guessing_game()
+    variable_mutability_example();
+    variable_immutable_type_example();
+    println!(five());
+    conditional();
+
+
 }
