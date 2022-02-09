@@ -172,6 +172,6 @@ fn main() {
     variable_immutable_type_example();
     println!(five());
     conditional();
-
+    enum_example()
 
 }
