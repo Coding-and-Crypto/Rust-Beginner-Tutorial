@@ -46,13 +46,16 @@ fn conditional() {
     println!("{}", result)
 }
 
+// A Constant
+//
 const SOME_CONSTANT: u28 = 20;
 
+// Enum
+//
 enum Direction {
     Up,
     Down
 }
-
 fn enum_example() {
     let player_direction: Direction = Direction::Up;
     match player_direction {
@@ -61,14 +64,14 @@ fn enum_example() {
     }
 }
 
-// Structs
+// Struct
+//
 struct User {
     username: String,
     email: String,
     sign_in_count: u64,
     active: bool,
 }
-
 fn initialize_struct() {
     let user1 = User {
         email: String::from("someone@example.com"),
@@ -79,6 +82,7 @@ fn initialize_struct() {
 }
 
 // When params have the same name you can just pass them!
+//
 fn initialize_struct_simple(email: String, username: String) -> User {
     User {
         email,
@@ -106,11 +110,11 @@ fn update_struct() {
 }
 
 // Methods
+//
 struct Person {
     first_name: String,
     last_name: String,
 }
-
 impl Person {
     fn details(&self) -> String {
         String::from("{}, {}", &self.last_name, &self.first_name)
@@ -118,6 +122,7 @@ impl Person {
 }
 
 // Enums also have methods
+//
 enum Message {
     Quit,
     Move {x: u64, y: u64},
