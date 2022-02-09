@@ -1,3 +1,5 @@
+// Can overwrite a variable with "let"
+//
 fn variable_mutability_example() {
     let x = 5;
     let x = x + 3;
@@ -5,20 +7,23 @@ fn variable_mutability_example() {
     println!("{}", x);
 }
 
+// Can't mutate a variable's type
+//
 fn variable_immutable_type_example() {
-
-    // Can't mutate a variable's type
-
     let some_string = "joe";
     let some_string = some_string.len();
     let some_other_string = "joe";
     some_other_string = some_other_string.len();
 }
 
+// Functions can just return numbers without computation
+//
 fn five() -> u32 {
     5
 }
 
+// Basic example of a conditional
+//
 fn conditional() {
     let number = 3;
 
@@ -40,6 +45,7 @@ fn conditional() {
     };
     println!("{}", result)
 }
+
 
 fn main() {
     variable_mutability_example();
