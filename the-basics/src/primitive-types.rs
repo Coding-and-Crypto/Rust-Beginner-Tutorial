@@ -3,7 +3,7 @@
 // Can't overwrite an immutable var
 fn immutable() {
     let x = 5;
-    // x = 6;
+    x = 6;
 }
 
 // Must overwrite with "let"
@@ -15,7 +15,7 @@ fn overwrite() {
 // Can't mutate a variable's type
 fn mutate_type() {
     let some_string = "donut";
-    // some_string = some_string.len();
+    some_string = some_string.len();
 }
 
 // Must mutate with "let"
@@ -49,7 +49,7 @@ fn strings() {
 
 // Slices
 fn slices() {
-    // let some_string: str = "donut";
+    let some_string: str = "donut";
     let some_other_string: &'static str = "donut";
 }
 
