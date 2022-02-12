@@ -55,15 +55,22 @@ struct Person {
 }
 
 impl Person {
+    // Method (uses "&self")
     fn details(&self) -> String {
-        String::from("{}, {}", &self.last_name, &self.first_name)
+        String::from(&self.last_name)
+    }
+    // Associated function (does not use "&self")
+    fn more_details() -> String {
+        String::from("nonsense")
     }
 }
 
 fn example() {
     let george = Person {
-        first_name: "George",
-        last_name: "Lopez",
+        first_name: String::from("George"),
+        last_name: String::from("Lopez"),
     };
-    println!(george.details())
+    println!("{}", george.details());
+    // **
+    println!("{}", Person::more_details());
 }
