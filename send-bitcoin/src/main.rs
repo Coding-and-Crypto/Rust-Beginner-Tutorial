@@ -9,7 +9,7 @@ fn send_bitcoin() {
 
     println!("Who do you want to send Bitcoin to?\n");
     for client in &clients {
-        print!("{}  ", client);
+        print!("{} ", client);
     }
     println!("\n");
 
@@ -23,8 +23,7 @@ fn send_bitcoin() {
         let mut amount = String::new();
         io::stdin().read_line(&mut amount);
 
-        println!("\nYou sent {} Bitcoin to {}\n", amount.trim(), recipient.trim());
-
+        println!("\nYou sent {} Bitcoin to {}!\n", amount.trim(), recipient.trim());
     } else {
         println!("{} is not in your contacts!", recipient.trim());
     }
@@ -41,7 +40,7 @@ fn recieve_bitcoin() {
 
 
 fn exit_console() {
-    println!("Error! Invalid input. Must be s or r");
+    println!("Invalid option, must be (s) or (r)");
 }
 
 
@@ -51,7 +50,6 @@ fn console() {
     println!("Do you want to send (s) or recieve (r) Bitcoin?\n");
 
     let mut command = String::new();
-
     io::stdin().read_line(&mut command);
 
     if command.trim().eq("s") {
@@ -62,6 +60,7 @@ fn console() {
         exit_console()
     }
 }
+
 
 fn main() {
     console()
