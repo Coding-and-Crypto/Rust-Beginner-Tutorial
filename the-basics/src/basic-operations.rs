@@ -16,19 +16,19 @@ fn conditional() {
     let number = 3;
 
     if number < 5 {
-        println!("True")
+        println!("True!")
     } else if number == 5 {
-        println!("OK")
+        println!("Ok!")
     } else {
-        println!("False")
+        println!("False!")
     }
 }
 
 // Loops
 fn while_loop() {
     loop {
-        println!("Infinite loop!!!");
-    };
+        println!("Infinite loop!");
+    }
 }
 fn for_loop() {
     for n in 1..40 {
@@ -43,5 +43,6 @@ fn loop_as_variable() {
                 "donut"
             };
         }
+        counter += 1
     };
 }
