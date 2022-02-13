@@ -1,5 +1,7 @@
 
 
+
+
 // Can't overwrite an immutable var
 fn immutable() {
     let x = 5;
@@ -24,7 +26,7 @@ fn overwrite_type() {
     let some_string = some_string.len();
 }
 
-// Declaring data types
+// Declare data types
 fn declare() {
     let x: u32 = 20;
 }
@@ -32,25 +34,19 @@ fn declare() {
 // Integers
 fn integers() {
     let signed_int: i64 = 34;
-    let unsigned_int: u16 = 11; 
+    let unsigned_int: u32 = 11;
 }
 
 // Booleans
 fn booleans() {
-    let t: bool = True;
-    let f: bool = False;
+    let t: bool = true;
+    let f: bool = false;
 }
 
 // Strings
 fn strings() {
-    let some_string = "donut"; // Slice (str)
-    let some_other_string: String = String::from("donut"); // String Object (String)
-}
-
-// Slices
-fn slices() {
-    let some_string: str = "donut";
-    let some_other_string: &'static str = "donut";
+    let some_slice: &str = "donut"; // Slice
+    let some_string: String = String::from("donut"); // String
 }
 
 // Constants
