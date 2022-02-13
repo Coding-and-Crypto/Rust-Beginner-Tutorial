@@ -10,3 +10,4 @@ fn testing_options() {
     let some_string = Some("a string");
     let absent_number: Option<i32> = Option::None;
 }
+
