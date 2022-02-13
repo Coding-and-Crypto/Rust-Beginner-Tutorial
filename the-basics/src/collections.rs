@@ -1,8 +1,4 @@
 
-
-use std::collections::HashMap;
-
-
 // Tuples
 fn tuples() {
     let tup: (i32, i32, String) = (1, 2, String::from("Paul"));
@@ -16,24 +12,23 @@ fn tuples() {
     println!("{}", tup.2);
 }
 
-
-// Arrays
+// Arays
 fn arrays() {
-    
+
     // Mutable
     let mut arr: [i32; 3] = [4, 5, 3];
-    arr[0] = 0;
-    arr[1] = 1;
+    arr[0] = 1;
+    arr[1] = 2;
     for x in &arr {
-        println!("{} ", x);
+        println!("{}", x);
     }
 
     // Initialize with expression
-    let exp_array: [i32; 5] = [1; 5]; // Five 1's
+    let exp_array: [i32; 5] = [0; 5];
     for x in &exp_array {
-        println!("{} ", x);
+        println!("{}", x);
     }
-    
+
     // Initialize variables with an array
     let [greg, mark] = ["Greg".to_string(), "Mark".to_string()];
     println!("{}", greg);
@@ -45,37 +40,36 @@ fn vectors() {
     let vector: Vec<i32> = vec![1, 3, 7, -1];
     let mut vector: Vec<i32> = (0..10).collect();
     for x in &vector {
-        println!("{}", x)
+        println!("{}", x);
     }
     // Append
     vector.push(-2);
     println!("{}", vector[vector.len() - 1]);
     println!("{:?}", vector.pop());
-    
 }
-
 
 // Iterating
 fn iterating() {
-    
+
     // Arrays
     let arr: [i32; 5] = [0; 5];
     //  By reference (.iter)
     for x in arr.iter() {
-        // gives you a tuple: (index, value)
         println!("{}", x);
     }
-    //  By reference - enumerated
-    for item in arr.iter().enumerate() {
+    //  By reference (.iter) - enumerated
+    for x in arr.iter().enumerate() {
         // gives you a tuple: (index, value)
-        println!("{}", item.1);
+        println!("{}", x.1);
     }
     //  By value (.into_iter)
     for item in arr.into_iter().enumerate() {
-        // You can choose to use both index and value
+        // You can choose to do both index and value
         let (i, x): (usize, i32) = item;
-        println!("Index: {}, Value: {}", i, x);
+        println!("Index: {}, Value: {}", i, x)
     }
+
+    println!("-----------------");
 
     // Vectors - Iterate the same as Arrays
     let vector: Vec<i32> = (0..5).collect();
@@ -86,5 +80,5 @@ fn iterating() {
     for x in mut_vector.iter_mut() {
         *x += 3;
     }
-    println!("{:?}", mut_vector)
+    println!("{:?}", mut_vector);
 }
