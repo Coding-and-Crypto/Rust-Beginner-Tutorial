@@ -11,8 +11,8 @@ enum StopLight {
 fn read_light(light: StopLight) -> String {
     match light {
         StopLight::Green => "Go!".to_string(),
-        StopLight::Yellow => "Slow down".to_string(),
-        StopLight::Red => "Stop!".to_string(),
+        StopLight::Yellow => "Slow down!".to_string(),
+        StopLight::Red => "Stop".to_string(),
     }
 }
 
@@ -26,22 +26,22 @@ fn match_example() {
 // Advanced Enums
 enum GolfEvent {
     TeeUp, // Unit - The golfer is teeing up the ball
-    Drive(String), // Function - The golfer drives the ball
-    ClubSelect{club: String, max_yardage: String}, // Struct - The golfer selects a new club
+    Drive(String), // Function - The golfer drives the ball n yards
+    ClubSelect {club: String, max_yard: String}, // Struct - The golfer selects a new club
 }
 
 fn golf_event(event: GolfEvent) -> String {
     match event {
-        GolfEvent::TeeUp => "Golfer is teeing up the ball!".to_string(),
+        GolfEvent::TeeUp => "Golfer is teeing up the ball".to_string(),
         GolfEvent::Drive(yards) => "Golfer just hit the ball ".to_string() + &yards + &" yards!".to_string(),
-        GolfEvent::ClubSelect{club, max_yardage} => "Golfer has equipped ".to_string() + &club + &". Max yardage is ".to_string() + &max_yardage,
+        GolfEvent::ClubSelect{club, max_yard} => "Golfer has equipped ".to_string() + &club + &". Max yardage is ".to_string() + &max_yard,
     }
 }
 
 fn match_golf_example() {
     println!("{}", golf_event(GolfEvent::TeeUp));
-    println!("{}", golf_event(GolfEvent::Drive("100".to_string())));
-    println!("{}", golf_event(GolfEvent::ClubSelect{club: "6 iron".to_string(), max_yardage: "175".to_string()}));
+    println!("{}", golf_event(GolfEvent::Drive("250".to_string())));
+    println!("{}", golf_event(GolfEvent::ClubSelect{club: "6 Iron".to_string(), max_yard: "175".to_string()}));
 }
 
 
@@ -52,9 +52,11 @@ enum Direction {
 }
 
 impl Direction {
+    // Method
     fn walk(&self) {
         println!("Walking...")
     }
+    // Associated function
     fn run() {
         println!("Running!")
     }
