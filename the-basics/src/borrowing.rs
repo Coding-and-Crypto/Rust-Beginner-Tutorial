@@ -1,19 +1,47 @@
 
 
 // References
-fn references() {
-
-    let mut original_value: i32 = 20;
-
-    // Borrow the original value to do some stuff
-    let x = &original_value; // & is a reference
-
-    // We can't do this operation because a reference to "a" is required later in the program
-    // Rust's **borrower compiler** guarantees your reference won't change
-    // If we conducted this operation, we would re-allocate this variable's location on the Heap
-    //   and x would point to something else or nothing
-    original_value = original_value*3;
-
-    println!("{}", x)
+fn destroy(val: String) {
+    println!("{}", val);
 }
 
+fn references() {
+
+    let mut original_value: String = String::from("Dan");
+
+    // Borrow the value of original_value
+    let x = &original_value; // & is a reference
+
+    original_value = String::from("Josh");
+
+    let x = &original_value;
+
+    println!("{}", x);
+    
+    // Object is "destroyed" when it leaves scope
+    destroy(original_value);
+    println!("{}", x);
+}
+
+// Dereferencing
+fn deferencing() {
+
+    let a = 1;
+    let b = &a;
+
+    assert_eq!(1, a);
+    assert_eq!(1, *b); // *b = a
+}
+
+// Static
+fn statics() {
+    let x: &'static str = "Dave";
+    let y = &x;
+    destroy(x.to_string()); // x is not destroyed here
+    println!("{}", y);
+}
+
+// usize
+fn usize_example() {
+    let x: usize = 2; // Depends on OS architecture (x32, x64)
+}
