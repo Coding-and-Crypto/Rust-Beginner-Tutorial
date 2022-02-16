@@ -32,12 +32,12 @@ pub fn blockchain_status_request() -> BlockchainStatus {
     serde_json::from_str(&response).expect("Failed to parse JSON")
 }
 
-fn blockchain_wallet_request(wallet_address: &str) -> BlockchainAddress {
-    let response = send_request(&[HOST_ROOT, "v2/address/", &wallet_address].join(""));
+pub fn blockchain_address_request(address_address: &str) -> BlockchainAddress {
+    let response = send_request(&[HOST_ROOT, "v2/address/", &address_address].join(""));
     serde_json::from_str(&response).expect("Failed to parse JSON")
 }
 
-fn blockchain_transaction_request(transaction_id: &str) -> BlockchainStatus {
+pub fn blockchain_transaction_request(transaction_id: &str) -> BlockchainStatus {
     let response = send_request(&[HOST_ROOT, "v2/tx/", &transaction_id].join(""));
     serde_json::from_str(&response).expect("Failed to parse JSON")
 }
