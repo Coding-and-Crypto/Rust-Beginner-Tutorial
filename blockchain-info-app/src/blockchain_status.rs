@@ -1,6 +1,6 @@
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-struct Blockbook {
+pub struct Blockbook {
     coin: String,
     host: String,
     version: String,
@@ -22,7 +22,7 @@ struct Blockbook {
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-struct Backend {
+pub struct Backend {
     chain: String,
     blocks: i64,
     headers: i64,
@@ -37,11 +37,7 @@ struct Backend {
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-struct BlockchainStatus {
+pub struct BlockchainStatus {
     blockbook: Blockbook,
     backend: Backend,
-}
-
-impl BlockchainInfo for BlockchainStatus {
-    
 }

@@ -1,13 +1,11 @@
-use dotenv;
-use reqwest;
-use tokio;
-use serde_json::Result;
-
-use blockchain_parent::BlockchainInfo;
-use blockchain_status::BlockchainStatus;
-use blockchain_address::BlockchainAddress;
-// use blockchain_transaction::BlockchainTransaction;
-
+use {
+    dotenv,
+    reqwest,
+    tokio,
+    serde_json::Result,
+    crate::blockchain_status::BlockchainStatus,
+    crate::blockchain_address::BlockchainAddress,
+};
 
 const HOST_ROOT: &str = "https://btcbook.nownodes.io/api/";
 
@@ -24,31 +22,30 @@ impl BlockchainInfoRequest {
     // Method to generate the associated url for each request type
     pub fn generate_url(request_type: BlockchainInfoRequest, 
                         wallet_address: Option<&str>, 
-                        transaction_id: Option<&str>) -> BlockchainInfo {
+                        transaction_id: Option<&str>) -> (BlockchainInfoRequest, String) {
         let host_root = String::from(HOST_ROOT);
         match request_type {
-            BlockchainInfoRequest::STATUS => host_root + "",
-            BlockchainInfoRequest::WALLET => host_root + "v2/address/" + wallet_address.expect("Wallet address is required"),
-            BlockchainInfoRequest::TRANSACTION => host_root + "v2/tx/" + transaction_id.expect("Transaction ID is required"),
+            BlockchainInfoRequest::STATUS => (request_type, host_root + ""),
+            BlockchainInfoRequest::WALLET => (request_type, host_root + "v2/address/" + wallet_address.expect("Wallet address is required")),
+            BlockchainInfoRequest::TRANSACTION => (request_type, host_root + "v2/tx/" + transaction_id.expect("Transaction ID is required")),
         }
     }
 
     // Method to point to which type of response we get after making the call
     pub fn parse_response(request_type: BlockchainInfoRequest, 
-                        response: &str) -> String {
-        let host_root = String::from(HOST_ROOT);
+                        response: &str) {
         match request_type {
             BlockchainInfoRequest::STATUS => {
                 let json_response: BlockchainStatus = serde_json::from_str(response).expect("Failed to parse JSON");
-                json_response
+                println!("{:#?}", json_response);
             },
             BlockchainInfoRequest::WALLET => {
                 let json_response: BlockchainAddress = serde_json::from_str(response).expect("Failed to parse JSON");
-                json_response
+                println!("{:#?}", json_response);
             },
             BlockchainInfoRequest::TRANSACTION => {
                 let json_response: BlockchainStatus = serde_json::from_str(response).expect("Failed to parse JSON");
-                json_response
+                println!("{:#?}", json_response);
             },
         }
     }
@@ -60,7 +57,7 @@ pub async fn send_get_request(request_type: BlockchainInfoRequest,
                             wallet_address: Option<&str>, 
                             transaction_id: Option<&str>) -> Result<()> {
 
-    let url = BlockchainInfoRequest::generate_url(request_type, wallet_address, transaction_id);
+    let (request_type, url) = BlockchainInfoRequest::generate_url(request_type, wallet_address, transaction_id);
 
     let client = reqwest::Client::new();
     let res = client
@@ -73,8 +70,7 @@ pub async fn send_get_request(request_type: BlockchainInfoRequest,
         .await
         .expect("Failed to convert to JSON");
 
-    let output = BlockchainInfoRequest::parse_response(request_type, &res);
-    println!("{:#?}", output);
+    BlockchainInfoRequest::parse_response(request_type, &res);
 
     Ok(())
 }
