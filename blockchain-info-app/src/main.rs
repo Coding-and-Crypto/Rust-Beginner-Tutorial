@@ -6,11 +6,14 @@ mod blockchain_status;
 mod blockchain_address;
 mod blockchain_transaction;
 
-use crate::blockchain_status::BlockchainStatus;
-use crate::blockchain_address::BlockchainAddress;
-
-use dotenv;
-use std::{thread, time};
+use {
+    crate::blockchain_status::BlockchainStatus,
+    crate::blockchain_address::BlockchainAddress,
+    crate::blockchain_transaction::BlockchainTransaction,
+    dotenv,
+    std::io,
+    std::{thread, time},
+};
 
 fn blockchain_info_app(address: &str) {
     
@@ -25,7 +28,7 @@ fn blockchain_info_app(address: &str) {
     
     println!("\nYou have a total of {} transactions!", &blockchain_address.txids.len());
 
-    println!("\n Do you want to query these transactions? (y/n)\n")
+    println!("\n Do you want to query these transactions? (y/n)\n");
 
     let mut command = String::new();
     io::stdin().read_line(&mut command);
@@ -34,11 +37,47 @@ fn blockchain_info_app(address: &str) {
     
         println!("\nWe will look up the following transactions:\n");
         thread::sleep(sleep_time);
-        for tx_id in &blockchain_address.txids {
-            println!("{}", tx_id);
-        }
+        println!("{:#?}\n", &blockchain_address.txids);
+        thread::sleep(sleep_time);
         
-        // blockchain_info::send_get_request(BlockchainInfoRequest::TRANSACTION, None, Some("d83cae367010766919b933f54122db87834e0fe50e50e78748aba06141a16eff"));
+        let mut total_vin: i32 = 0;
+        let mut total_vout: i32 = 0;
+        for tx_id in &blockchain_address.txids {
+
+            let mut subtotal_vin: i32 = 0;
+            let mut subtotal_vout: i32 = 0;
+            
+            let blockchain_transaction: BlockchainTransaction = blockchain_info::blockchain_transaction_request(&tx_id);
+            
+            let match_address = String::from(address);
+
+            for tx in &blockchain_transaction.vin{
+                if tx.addresses.contains(&match_address) {
+                    subtotal_vin += tx.value.parse::<i32>().unwrap();
+                }
+            };
+            total_vin += &subtotal_vin;
+            for tx in &blockchain_transaction.vout{
+                if tx.addresses.contains(&match_address) {
+                    subtotal_vout += tx.value.parse::<i32>().unwrap();
+                }
+            };
+            total_vout += &subtotal_vout;
+
+            let subbalance = &subtotal_vout - &subtotal_vin;
+
+            println!("-----------------------------------------------------");
+            println!("TX ID:           {}", &blockchain_transaction.txid);
+            println!("SATOSHIS IN:     {}", &subtotal_vin);
+            println!("SATOSHIS OUT:    {}", &subtotal_vout);
+            println!("BALANCE:         {}", &subbalance);
+            println!("-----------------------------------------------------");
+        };
+
+        let balance = &total_vout - &total_vin;
+        println!("CURRENT BALANCE:     {}", &balance);
+        println!("         IN BTC:     {}\n\n", balance as f32 * 0.00000001);
+    }
 }
 
 fn main() {

@@ -5,30 +5,30 @@ pub struct Vin {
     vout: i64,
     sequence: i64,
     n: i64,
-    addresses: Vec<String>,
+    pub addresses: Vec<String>,
     is_address: bool,
-    value: String,
+    pub value: String,
     hex: String,
 }
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Vout {
-    value: String,
+    pub value: String,
     n: i64,
     hex: String,
-    addresses: Vec<String>,
+    pub addresses: Vec<String>,
     is_address: bool
 }
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct BlockchainTransaction {
-    txid: String,
+    pub txid: String,
     version: i64,
     // lock_time: i64,
-    vin: Vec<Vin>,
-    vout: Vec<Vout>,
+    pub vin: Vec<Vin>,
+    pub vout: Vec<Vout>,
     block_hash: String,
     block_height: i64,
     confirmations: i64,
