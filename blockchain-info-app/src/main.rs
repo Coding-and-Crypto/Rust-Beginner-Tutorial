@@ -1,11 +1,10 @@
 #[macro_use]
 extern crate serde_derive;
 
-use serde_json::Result;
-use error_chain::error_chain;
-use std::io::Read;
+use dotenv;
 use reqwest;
 use tokio;
+use serde_json::Result;
 
 
 #[derive(Deserialize, Debug)]
@@ -54,16 +53,12 @@ struct BlockchainStatus {
 
 
 #[tokio::main]
-async fn status() -> Result<()> {
-
-    // let tx_id = "d83cae367010766919b933f54122db87834e0fe50e50e78748aba06141a16eff";
-    // let mut url = "https://btcbook.nownodes.io/api/v2/tx/".to_string();
-    // url += tx_id;
+async fn view_blockchain_status() -> Result<()> {
 
     let client = reqwest::Client::new();
     let res = client
         .get("https://btcbook.nownodes.io/api/")
-        .header("api-key", "5gI430GApahtEPjKzqUZd8FyCW9kVnvb")
+        .header("api-key", dotenv::var("API_KEY").expect("Error reading env var"))
         .send()
         .await
         .expect("Failed to get response")
@@ -78,6 +73,5 @@ async fn status() -> Result<()> {
 }
 
 fn main() {
-    status();
-    // deserialize();
+    view_blockchain_status();
 }
