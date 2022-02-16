@@ -40,8 +40,7 @@ fn blockchain_info_app(address: &str) {
         println!("{:#?}\n", &blockchain_address.txids);
         thread::sleep(sleep_time);
         
-        let mut total_vin: i32 = 0;
-        let mut total_vout: i32 = 0;
+        let mut balance: i32 = 0;
         for tx_id in &blockchain_address.txids {
 
             let mut subtotal_vin: i32 = 0;
@@ -56,25 +55,22 @@ fn blockchain_info_app(address: &str) {
                     subtotal_vin += tx.value.parse::<i32>().unwrap();
                 }
             };
-            total_vin += &subtotal_vin;
             for tx in &blockchain_transaction.vout{
                 if tx.addresses.contains(&match_address) {
                     subtotal_vout += tx.value.parse::<i32>().unwrap();
                 }
             };
-            total_vout += &subtotal_vout;
 
-            let subbalance = &subtotal_vout - &subtotal_vin;
+            balance += &subtotal_vout - &subtotal_vin;
 
             println!("-----------------------------------------------------");
             println!("TX ID:           {}", &blockchain_transaction.txid);
-            println!("SATOSHIS IN:     {}", &subtotal_vin);
-            println!("SATOSHIS OUT:    {}", &subtotal_vout);
-            println!("BALANCE:         {}", &subbalance);
+            println!("SATOSHIS IN:     {}", &subtotal_vout);
+            println!("SATOSHIS OUT:    {}", &subtotal_vin);
+            println!("BALANCE:         {}", &balance);
             println!("-----------------------------------------------------");
         };
 
-        let balance = &total_vout - &total_vin;
         println!("CURRENT BALANCE:     {}", &balance);
         println!("         IN BTC:     {}\n\n", balance as f32 * 0.00000001);
     }
