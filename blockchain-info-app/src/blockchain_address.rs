@@ -1,15 +1,15 @@
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct BlockchainAddress {
-    page: u16,
-    total_pages: u16,
-    items_on_page: u64,
+    // page: i64,
+    // total_pages: i64,
+    // items_on_page: i64,
     pub address: String,
-    balance: String,
-    total_received: String,
-    total_sent: String,
-    unconfirmed_balance: String,
-    unconfirmed_txs: u64,
-    txs: u64,
+    // balance: String,
+    // total_received: String,
+    // total_sent: String,
+    // unconfirmed_balance: String,
+    // unconfirmed_txs: i64,
+    // txs: i64,
     pub txids: Vec<String>
 }
