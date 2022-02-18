@@ -11,8 +11,7 @@ use {
     crate::blockchain_address::BlockchainAddress,
     crate::blockchain_transaction::BlockchainTransaction,
     dotenv,
-    std::io,
-    std::{thread, time},
+    std::{io, thread, time},
 };
 
 fn blockchain_info_app(address: &str) {
@@ -22,10 +21,10 @@ fn blockchain_info_app(address: &str) {
     
     let blockchain_address: BlockchainAddress = blockchain_info::blockchain_address_request(address);
     println!("\n\nAnalyzing transactions for Bitcoin address {}", &blockchain_address.address);
-    
+
     let sleep_time = time::Duration::from_millis(2500);
     thread::sleep(sleep_time);
-    
+
     println!("\nYou have a total of {} transactions!", &blockchain_address.txids.len());
 
     println!("\n Do you want to query these transactions? (y/n)\n");
@@ -34,32 +33,32 @@ fn blockchain_info_app(address: &str) {
     io::stdin().read_line(&mut command);
 
     if command.trim().eq("y") {
-    
+
         println!("\nWe will look up the following transactions:\n");
+        println!("{:#?}", &blockchain_address.txids);
         thread::sleep(sleep_time);
-        println!("{:#?}\n", &blockchain_address.txids);
-        thread::sleep(sleep_time);
-        
+
         let mut balance: i32 = 0;
         for tx_id in &blockchain_address.txids {
 
             let mut subtotal_vin: i32 = 0;
             let mut subtotal_vout: i32 = 0;
-            
+
             let blockchain_transaction: BlockchainTransaction = blockchain_info::blockchain_transaction_request(&tx_id);
-            
+
             let match_address = String::from(address);
 
-            for tx in &blockchain_transaction.vin{
+            for tx in &blockchain_transaction.vin {
                 if tx.addresses.contains(&match_address) {
                     subtotal_vin += tx.value.parse::<i32>().unwrap();
                 }
-            };
-            for tx in &blockchain_transaction.vout{
+            }
+
+            for tx in &blockchain_transaction.vout {
                 if tx.addresses.contains(&match_address) {
                     subtotal_vout += tx.value.parse::<i32>().unwrap();
                 }
-            };
+            }
 
             balance += &subtotal_vout - &subtotal_vin;
 

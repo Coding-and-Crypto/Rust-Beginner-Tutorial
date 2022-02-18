@@ -1,3 +1,4 @@
+
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Blockbook {
@@ -19,7 +20,6 @@ pub struct Blockbook {
     // about: String
 }
 
-
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Backend {
@@ -33,7 +33,6 @@ pub struct Backend {
     // subversion: String,
     // protocol_version: String
 }
-
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
