@@ -1,6 +1,6 @@
 # Rust Beginner Tutorial
 
-Check it out on YoutTube!
+Check it out on YouTube!
 https://www.youtube.com/playlist?list=PLUBKxx7QjtVnXD7-u8iIVeIdQXmYRptp-
 
 ## Setting up Rust
