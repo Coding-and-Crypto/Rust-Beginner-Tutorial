@@ -7,9 +7,9 @@ https://www.youtube.com/playlist?list=PLUBKxx7QjtVnXD7-u8iIVeIdQXmYRptp-
 
 Navigate over to https://doc.rust-lang.org/cargo/getting-started/installation.html and install Cargo for your operating system.
 
-Linux & MacOS will use the command provided, and Windows will require the `.exe.` file available below that.
+Linux & MacOS will use the command provided, and Windows will require the `.exe` file available below that.
 
-### Tutorial #1 - Setup & Sample App!
+### Tutorial #1
 ```shell
 send-bitcoin
 ```
